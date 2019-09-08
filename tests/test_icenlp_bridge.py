@@ -12,20 +12,16 @@ from icenlp_bridge import init, parse
 class TestIcenlp_bridge(unittest.TestCase):
     """Tests for `icenlp_bridge` package."""
 
-    def setUp(self):
-        """Set up test fixtures, if any."""
-        init()
+    @unittest.skipIf(os.environ.get('TRAVIS') == 'true', 'IceNLP server not running')
+    def test_init(self):
+        init('localhost', 1234)
 
-    def tearDown(self):
-        """Tear down test fixtures, if any."""
+    def test_failed_init(self):
+        with self.assertRaises(Exception) as context:
+            init('localhost', 4321)
 
     @unittest.skipIf(os.environ.get('TRAVIS') == 'true', 'IceNLP server not running')
-    def test_parse1(self):
-        self.assertEqual('what?', os.environ.get('TRAVIS'))
+    def test_parse(self):
+        init('localhost', 1234)
         result = parse('Áframhaldandi úrkoma í dag')
         self.assertIn('Áframhaldandi', result)
-
-    @unittest.skipIf(os.environ.get('TRAVIS') == 'true', 'IceNLP server not running')
-    def test_parse2(self):
-        result = parse('Ytra Lón á Langanesi.')
-        self.assertIn('Langanesi', result)
