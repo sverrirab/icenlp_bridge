@@ -24,5 +24,5 @@ class TestIcenlp_bridge(unittest.TestCase):
         self.assertIn('Áframhaldandi', result)
 
     def test_parse2(self):
-        result = parse('Grindhvalirnir 62 sem syntu upp í fjöru við Ytra Lón á Langanesi í gæreru nú allir dauðir.')
+        result = parse('Ytra Lón á Langanesi.')
         self.assertIn('Langanesi', result)

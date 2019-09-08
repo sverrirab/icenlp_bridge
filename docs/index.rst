@@ -1,4 +1,4 @@
-Welcome to Python bridge for IceNLP's documentation!
+Welome to icenlp_bridge documentation!
 ======================================
 
 .. toctree::

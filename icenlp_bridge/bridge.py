@@ -53,7 +53,8 @@ async def icenlp_client(message: str) -> Awaitable[str]:
     return received.decode('utf-8')
 
 
-def init(hostname: Optional[str] = None, port: Optional[int] = None) -> NoReturn:
+def init(hostname: Optional[str] = None,
+         port: Optional[int] = None) -> NoReturn:
     """Initialize IceNLP connection"""
     global _hostname, _port
     if hostname is not None:
