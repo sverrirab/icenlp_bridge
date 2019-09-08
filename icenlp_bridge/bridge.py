@@ -1,13 +1,13 @@
-#!/usr/bin/env python3
-
-import argparse
 import asyncio
 import struct
 
-from typing import Any, NoReturn
+from typing import Any, Awaitable, Optional, NoReturn
 
 _PACKET_SIZE = 512
 _DATA_SIZE = 504   # 512 - 2 * 4
+
+_hostname = 'localhost'
+_port = 1234
 
 
 def writeHeader(writer: Any, num_packets: int) -> NoReturn:
@@ -23,9 +23,8 @@ def writeData(writer: Any, data: bytes) -> NoReturn:
         writer.write(struct.pack('b', 0) * (_DATA_SIZE - len(data)))
 
 
-async def icenlp_client(message: str) -> str:
-    reader, writer = await asyncio.open_connection(
-        '127.0.0.1', 1234)
+async def icenlp_client(message: str) -> Awaitable[str]:
+    reader, writer = await asyncio.open_connection(_hostname, _port)
 
     encoded = message.encode('utf-8')
     out_packets = (len(encoded) // _DATA_SIZE) + 1
@@ -54,28 +53,15 @@ async def icenlp_client(message: str) -> str:
     return received.decode('utf-8')
 
 
+def init(hostname: Optional[str] = None, port: Optional[int] = None) -> NoReturn:
+    """Initialize IceNLP connection"""
+    global _hostname, _port
+    if hostname is not None:
+        _hostname = hostname
+    if port is not None:
+        _port = port
+    parse('Núna!')
+
+
 def parse(text: str) -> str:
-    asyncio.run(icenlp_client(text))
-
-
-def main():
-    parser = argparse.ArgumentParser(
-        description='Bridge for IceNLP')
-
-    parser.add_argument(
-        '-v', '--verbose', action='count', default=0,
-        help='Increase output verbosity')
-    parser.add_argument('filename', help='File to read and parse')
-
-    args = parser.parse_args()
-
-    with open(args.filename) as input:
-        process = input.read()
-        for line in process.split('\n'):
-            print(process)
-
-            parse(process)
-
-
-if __name__ == '__main__':
-    main()
+    return asyncio.get_event_loop().run_until_complete(icenlp_client(text))
