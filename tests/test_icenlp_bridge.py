@@ -21,6 +21,7 @@ class TestIcenlp_bridge(unittest.TestCase):
 
     @unittest.skipIf(os.environ.get('TRAVIS') == 'true', 'IceNLP server not running')
     def test_parse1(self):
+        self.assertEqual('what?', os.environ.get('TRAVIS'))
         result = parse('Áframhaldandi úrkoma í dag')
         self.assertIn('Áframhaldandi', result)
 
