@@ -44,7 +44,9 @@ Your code might look like this:
 
 >>> from icenlp_bridge import parse
 >>> print(parse('Vá hvað þetta var einfalt!'))
->>> # [InjP Vá au ] {*SUBJ [NP hvað fshen ] } {*SUBJ> [NP þetta fahen ] } [VPb var sfg3eþ ] {*COMP< [AP einfalt lhensf ] } ! !
+
+
+``[InjP Vá au ] {*SUBJ [NP hvað fshen ] } {*SUBJ> [NP þetta fahen ] } [VPb var sfg3eþ ] {*COMP< [AP einfalt lhensf ] } ! !``
 
 
 You can also pipe files into icenlp_bridge
@@ -56,10 +58,11 @@ For connection options see `python -m icenlp_bridge --help` and `init` documenta
 Credits
 -------
 
-This package is built on the excellent IceNLP_ library.  
+This package is built on the excellent IceNLP_ library.  Information on the docker image can be found on DockerHub_.
 
 This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
 
 .. _IceNLP: https://github.com/hrafnl/icenlp
+.. _DockerHub: https://cloud.docker.com/repository/docker/sverrirab/icenlp
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
