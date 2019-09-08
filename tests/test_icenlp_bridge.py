@@ -17,6 +17,7 @@ class TestIcenlp_bridge(unittest.TestCase):
         init('localhost', 1234)
 
     def test_failed_init(self):
+        print('TRAVIS:', os.environ.get('TRAVIS'))
         with self.assertRaises(Exception) as context:
             init('localhost', 4321)
 
