@@ -64,4 +64,5 @@ def init(hostname: Optional[str] = None, port: Optional[int] = None) -> NoReturn
 
 
 def parse(text: str) -> str:
+    """Parse text with IceNLP"""
     return asyncio.get_event_loop().run_until_complete(icenlp_client(text))

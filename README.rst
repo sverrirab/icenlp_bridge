@@ -26,12 +26,40 @@ Simplify using IceNLP (Icelandic NLP library written in Java)
 Features
 --------
 
-* TODO
+* Run Icelandic NLP from python using a local IceNLP server and this library
+
+
+Example
+-------
+
+Start the local IceNLP server.  For example using docker:
+
+``docker run -it --rm -p 1234:1234 sverrirab/icenlp``
+
+Install locally using:
+
+``pip install icenlp_bridge``
+
+Your code might look like this:
+
+>>> from icenlp_bridge import parse
+>>> print(parse('Vá hvað þetta var einfalt!'))
+>>> # [InjP Vá au ] {*SUBJ [NP hvað fshen ] } {*SUBJ> [NP þetta fahen ] } [VPb var sfg3eþ ] {*COMP< [AP einfalt lhensf ] } ! !
+
+
+You can also pipe files into icenlp_bridge
+
+``cat texti.txt | python -m icenlp_bridge``
+
+For connection options see `python -m icenlp_bridge --help` and `init` documentation.
 
 Credits
 -------
 
+This package is built on the excellent IceNLP_ library.  
+
 This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
 
+.. _IceNLP: https://github.com/hrafnl/icenlp
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
