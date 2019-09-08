@@ -15,6 +15,7 @@ class TestIcenlp_bridge(unittest.TestCase):
     """Tests for `icenlp_bridge` package."""
 
     def test_failed_init(self):
+        print('ICENLP_DISABLE_TEST', os.environ.get('ICENLP_DISABLE_TEST'), _SKIP)
         with self.assertRaises(Exception):
             init('localhost', 4321)
 
