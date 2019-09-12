@@ -1,7 +1,7 @@
 import asyncio
 import struct
 
-from typing import Any, Awaitable, Optional, NoReturn
+from typing import Any, Optional
 
 _PACKET_SIZE = 512
 _DATA_SIZE = 504   # 512 - 2 * 4
@@ -10,20 +10,20 @@ _hostname = 'localhost'
 _port = 1234
 
 
-def writeHeader(writer: Any, num_packets: int) -> NoReturn:
+def writeHeader(writer: Any, num_packets: int) -> None:
     writer.write(struct.pack('!i', 1))
     writer.write(struct.pack('!i', num_packets))
     writer.write(struct.pack('b', 0) * (_PACKET_SIZE - 2*4))
 
 
-def writeData(writer: Any, data: bytes) -> NoReturn:
+def writeData(writer: Any, data: bytes) -> None:
     writer.write(struct.pack('!ii', 2, len(data)))
     writer.write(data)
     if len(data) < _DATA_SIZE:
         writer.write(struct.pack('b', 0) * (_DATA_SIZE - len(data)))
 
 
-async def icenlp_client(message: str) -> Awaitable[str]:
+async def icenlp_client(message: str) -> str:
     reader, writer = await asyncio.open_connection(_hostname, _port)
 
     encoded = message.encode('utf-8')
@@ -54,7 +54,7 @@ async def icenlp_client(message: str) -> Awaitable[str]:
 
 
 def init(hostname: Optional[str] = None,
-         port: Optional[int] = None) -> NoReturn:
+         port: Optional[int] = None) -> None:
     """Initialize IceNLP connection"""
     global _hostname, _port
     if hostname is not None:
