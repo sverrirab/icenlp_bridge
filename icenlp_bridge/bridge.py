@@ -66,4 +66,11 @@ def init(hostname: Optional[str] = None,
 
 def parse(text: str) -> str:
     """Parse text with IceNLP"""
-    return asyncio.get_event_loop().run_until_complete(icenlp_client(text))
+    retries = 5
+    while True:
+        try:
+            return asyncio.get_event_loop().run_until_complete(icenlp_client(text))
+        except asyncio.streams.IncompleteReadError:
+            retries -= 1
+            if retries == 0:
+                raise
